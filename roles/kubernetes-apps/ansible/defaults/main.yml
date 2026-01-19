@@ -48,6 +48,10 @@ deploy_coredns: true
 # coredns_additional_error_config: |
 #   consolidate 5m ".* i/o timeout$" warning
 
+# Extra volumes and volume mounts for CoreDNS pods
+coredns_extra_volumes: []
+coredns_extra_volume_mounts: []
+
 # Configure coredns and nodelocaldns to correctly answer DNS queries when you changed
 # your 'dns_domain' and some workloads used it directly.
 old_dns_domains: []
@@ -72,6 +76,10 @@ nodelocaldns_secondary_prometheus_port: 9255
 # nodelocaldns_additional_configs: |
 #   whoami
 #   local
+
+# Extra volumes and volume mounts for NodeLocalDNS pods
+nodelocaldns_extra_volumes: []
+nodelocaldns_extra_volume_mounts: []
 
 # Limits for dns-autoscaler
 dns_autoscaler_cpu_requests: 20m

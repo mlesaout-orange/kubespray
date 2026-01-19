@@ -78,6 +78,9 @@ spec:
           mountPath: /etc/coredns
         - name: xtables-lock
           mountPath: /run/xtables.lock
+{% if nodelocaldns_extra_volume_mounts | length > 0 %}
+{{ nodelocaldns_extra_volume_mounts | to_nice_yaml(indent=2) | indent(8) }}
+{% endif %}
         lifecycle:
           preStop:
             exec:
@@ -100,6 +103,9 @@ spec:
           hostPath:
             path: /run/xtables.lock
             type: FileOrCreate
+{% if nodelocaldns_extra_volumes | length > 0 %}
+{{ nodelocaldns_extra_volumes | to_nice_yaml(indent=2) | indent(8) }}
+{% endif %}
       # Implement a time skew between the main nodelocaldns and this secondary.
       # Since the two nodelocaldns instances share the :53 port, we want to keep
       # at least one running at any time even if the manifests are replaced simultaneously

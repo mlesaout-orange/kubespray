@@ -93,6 +93,9 @@ spec:
           mountPath: /etc/coredns
         - name: xtables-lock
           mountPath: /run/xtables.lock
+{% if nodelocaldns_extra_volume_mounts | length > 0 %}
+{{ nodelocaldns_extra_volume_mounts | to_nice_yaml(indent=2) | indent(8) }}
+{% endif %}
       volumes:
         - name: config-volume
           configMap:
@@ -108,6 +111,9 @@ spec:
           hostPath:
             path: /run/xtables.lock
             type: FileOrCreate
+{% if nodelocaldns_extra_volumes | length > 0 %}
+{{ nodelocaldns_extra_volumes | to_nice_yaml(indent=2) | indent(8) }}
+{% endif %}
       # Minimize downtime during a rolling upgrade or deletion; tell Kubernetes to do a "force
       # deletion": https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods.
       terminationGracePeriodSeconds: 0

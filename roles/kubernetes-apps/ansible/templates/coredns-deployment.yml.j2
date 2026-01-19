@@ -64,6 +64,9 @@ spec:
         volumeMounts:
         - name: config-volume
           mountPath: /etc/coredns
+{% if coredns_extra_volume_mounts | length > 0 %}
+{{ coredns_extra_volume_mounts | to_nice_yaml(indent=2) | indent(8) }}
+{% endif %}
         ports:
         - containerPort: 53
           name: dns
@@ -109,4 +112,7 @@ spec:
 {% if dns_etchosts | default(None) %}
             - key: hosts
               path: hosts
+{% endif %}
+{% if coredns_extra_volumes | length > 0 %}
+{{ coredns_extra_volumes | to_nice_yaml(indent=2) | indent(8) }}
 {% endif %}

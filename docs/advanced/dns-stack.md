@@ -50,6 +50,16 @@ is not set, a default resolver is chosen (depending on cloud provider or 8.8.8.8
 DNS servers to be added *after* the cluster DNS. Used by all ``resolvconf_mode`` modes. These serve as backup
 DNS servers in early cluster deployment when no cluster DNS is available yet.
 
+DNS over TLS is supported for cluster DNS using `tls://` URIs (e.g., `tls://8.8.8.8`, `tls://9.9.9.9%dns.quad9.net:10853`). Requires ``resolvconf_mode: none`` as systemd-resolved does not support this format.
+
+### coredns_extra_volumes / coredns_extra_volume_mounts
+
+Lists of extra volumes and volume mounts to inject into CoreDNS pods.
+
+### nodelocaldns_extra_volumes / nodelocaldns_extra_volume_mounts
+
+Lists of extra volumes and volume mounts to inject into NodeLocalDNS pods.
+
 ### dns_upstream_forward_extra_opts
 
 Whether or not upstream DNS servers come from `upstream_dns_servers` variable or /etc/resolv.conf, related forward block in coredns (and nodelocaldns) configuration can take options (see <https://coredns.io/plugins/forward/> for details).
